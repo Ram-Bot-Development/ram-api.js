@@ -33,7 +33,7 @@
   "homepage": "https://github.com/anime-development/ram-api.js#readme",
   "dependencies": {
     "@classycrafter/super-logger": "^2.0.0",
-    "axios": "^0.24.0",
+    "axios": "^0.28.0",
     "npm-registry-fetch": "^16.0.0"
   },
   "devDependencies": {
