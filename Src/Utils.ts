@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ExecuteLogger } from "../Src/ExecuteLoger";
+import {ExecuteLocalLogger as ExecuteLogger } from "./ExecuteLocalLogger";
 import { DemoEndpoints } from "./Demo";
 
 var logger = new ExecuteLogger("Ram Bot Development");

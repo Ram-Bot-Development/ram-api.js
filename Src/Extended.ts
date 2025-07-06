@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { ExecuteLogger } from "./ExecuteLoger";
+import {ExecuteLocalLogger as ExecuteLogger } from "./ExecuteLocalLogger";
 
 
 
