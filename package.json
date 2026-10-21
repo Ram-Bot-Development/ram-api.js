@@ -34,7 +34,7 @@
   "dependencies": {
     "@classycrafter/super-logger": "^2.0.0",
     "axios": "^1.6.8",
-    "npm-registry-fetch": "^16.0.0",
+    "npm-registry-fetch": "^20.0.1",
     "typescript": "^5.4.5"
   },
   "devDependencies": {
