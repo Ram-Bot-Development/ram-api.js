@@ -90,8 +90,8 @@ var logger = new ExecuteLogger("Ram Bot Development");
 
            _options = _options || {};
           
-           const supportedVersions = ["v16"];
-           const outdatedVersions = [ "v13", "v14", "v15"];
+           const supportedVersions = ["v15"];
+           const outdatedVersions = ["v14"];
            const notsupported = [
              "v0",
              "v1",
@@ -105,10 +105,12 @@ var logger = new ExecuteLogger("Ram Bot Development");
              "v9",
              "v10",
              "v11",
-             "v12"
+             "v12",
+             "v13"
            ];
-            const requestedVersion = this.version || "v14";
-            if(requestedVersion === "v16") return reject("This is not supported past v15 use normal endpoint for v16+")
+            const requestedVersion = this.version || "v15";
+            const versionNumber = parseInt(String(requestedVersion).replace(/\D/g, ""), 10);
+            if (versionNumber >= 16) return reject("This is not supported past v15 use normal endpoint for v16+")
       
             if (supportedVersions.includes(requestedVersion)) {
             } else if (outdatedVersions.includes(requestedVersion)) {
@@ -181,7 +183,7 @@ var logger = new ExecuteLogger("Ram Bot Development");
         return await this._apiRequest("/hug") as Promise<{ url: string }>;
       }
       async goodNightAsync(lang = "english"): Promise<{ text: string, url: string }> {
-        return await this._apiRequest("/goodNight") as Promise<{ text: string, url: string }>;
+        return await this._apiRequest("/goodNight", { params: { lang } }) as Promise<{ text: string, url: string }>;
       }
       async goodMorningAsync(lang = "english"): Promise<{ text: string, url: string }> {
         return await this._apiRequest("/goodMorning", { params: { lang } }) as Promise<{ text: string, url: string }>;
@@ -199,7 +201,7 @@ var logger = new ExecuteLogger("Ram Bot Development");
         return await this._apiRequest("/8ball", { params: { lang } }) as Promise<{ text: string }>;
       }
       async rateLimitAsync(): Promise<{ limit: number, current: number, remaining: number, resetTime: string, resetTimeFormated: string  }> {
-        return await this._apiRequest("/ratelimit") as Promise<{ limit: number, current: number, remaining: number, resetTime: string, resetTimeFormated: string  }>;
+        return await this._apiRequest("/rateLimit") as Promise<{ limit: number, current: number, remaining: number, resetTime: string, resetTimeFormated: string  }>;
       }
       async randomNumberAsync(min: number, max: number): Promise<{ Number: number, roundedNumber: number, flooredNumber: number, enteredNumbers: string}> {
         return await this._apiRequest("/randomNumber", {
@@ -215,7 +217,7 @@ var logger = new ExecuteLogger("Ram Bot Development");
           try {
              await axios({
               method: "post",
-              url: `/suggestion/${suggestion}`,
+              url: `/${this.version}/suggestion/${suggestion}`,
               data: {}, // Replace {} with the actual request body you want to send
               params: params || {},
               baseURL: this.baseURL,

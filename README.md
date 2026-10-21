@@ -1,14 +1,12 @@
 <div align="center">
-  <br />
   <p>
-    <a href="https://api.rambot.xyz"><img src="https://gamearoo.top/ram/ramapijs.png" width="546" alt="ram-api.js" /></a>
+    <a href="https://api.rambot.xyz"><img src="https://rambot.xyz/ram-api-images/ram/ram-apijs.png" width="546" alt="ram-api.js" /></a>
   </p>
-  <br />
   <p>
-    <a href="https://discord.gg/q3ycRjBG9q"><img src="https://img.shields.io/discord/1068088656377692170?color=5865F2&logo=discord&logoColor=white" alt="Discord server" /></a>
-    <a href="https://www.npmjs.com/package/ram-api.js"><img src="https://img.shields.io/npm/v/ram-api.js.svg" alt="npm version" /></a>
-    <a href="https://www.npmjs.com/package/ram-api.js"><img src="https://img.shields.io/npm/dt/ram-api.js.svg?maxAge=3600" alt="npm downloads" /></a>
-    <a href="https://github.com/Gamearoos-development/ram-api.js/actions"><img src="https://github.com/Gamearoos-development/ram-api.js/actions/workflows/text.yml/badge.svg" alt="Tests status" /></a>
+    <a href="https://discord.gamearoo.dev"><img src="https://img.shields.io/badge/chat-Discord-5865F2?logo=discord&logoColor=white" alt="Discord server" /></a>
+    <a href="https://www.npmjs.com/package/ram-api.js"><img src="https://img.shields.io/npm/v/ram-api.js" alt="npm version" /></a>
+    <a href="https://www.npmjs.com/package/ram-api.js"><img src="https://img.shields.io/npm/dm/ram-api.js?style=flat" alt="npm downloads" /></a>
+    <a href="https://github.com/Ram-Bot-Development/ram-api.js/actions"><img src="https://img.shields.io/github/actions/workflow/status/Ram-Bot-Development/ram-api.js/text.yml?branch=main&label=Tests" alt="Tests status" /></a>
     
   </p>
   <a href="https://nodei.co/npm/ram-api.js/"><img src="https://nodei.co/npm/ram-api.js.png?downloads=true&downloadRank=true&stars=true"></a>
@@ -22,17 +20,19 @@ We understand using ram api can be hard as it has alot this package calls the ap
 
 `npm i ram-api.js` or `yarn add ram-api.js`
 
-> Update to 15.0.x
+> Update
 
 ```text
 use Normal for v16 and up
 
-no other changes
+current api version is v17
+
+v13 is retired
 ```
 
 > api key
 
-for a api key join the discord and go to #request-api-keys https://discord.gg/q3ycRjBG9q
+for a api key join the discord and go to #request-api-keys https://discord.gamearoo.dev
 
 
 
@@ -56,7 +56,7 @@ for a api key join the discord and go to #request-api-keys https://discord.gg/q3
 
 > Missing endpoint
 
-current api version is v16 if v17 is out then contact support
+current api version is v17. v13 is retired
 
 ram api endpoints can be found at https://api.rambot.xyz
 
@@ -64,4 +64,4 @@ ram api endpoints can be found at https://api.rambot.xyz
 
 email : support@rambot.xyz
 
-discord: https://discord.gg/q3ycRjBG9q
+discord: https://discord.gamearoo.dev

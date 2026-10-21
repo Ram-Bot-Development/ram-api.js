@@ -3,10 +3,10 @@ import {ExecuteLocalLogger as ExecuteLogger } from "./ExecuteLocalLogger";
 import { DemoEndpoints } from "./Demo";
 
 var logger = new ExecuteLogger("Ram Bot Development");
-const latestVersion = "v16";
+const latestVersion = "v17";
 
-const supportedVersions = ["v16"];
-const outdatedVersions = ["v13", "v14", "v15"];
+const supportedVersions = ["v17"];
+const outdatedVersions = ["v14", "v15", "v16"];
 const notsupported = [
   "v0",
   "v1",
@@ -20,7 +20,8 @@ const notsupported = [
   "v9",
   "v10",
   "v11",
-  "v12"
+  "v12",
+  "v13"
 ];
 
 
@@ -51,7 +52,7 @@ export class Utils {
       async customAsync(endpoint: string, accessLevel = "demo", _options: {version?: string, params?: {}, headers?: {}}): Promise<any> {
         return new Promise(async (resolve, reject) => {
          
-         let requestedVersion = `${_options.version}` || latestVersion;
+         let requestedVersion = _options.version || latestVersion;
     
           if (supportedVersions.includes(requestedVersion)) {
           } else if (outdatedVersions.includes(requestedVersion)) {
@@ -63,7 +64,7 @@ export class Utils {
             return reject("Check console");
           }
 
-          const basicVersions = ["v0", "v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8", "v9", "v10", "v11", "v12", "v13"]
+          const basicVersions = ["v0", "v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8", "v9", "v10", "v11", "v12"]
 
        
 

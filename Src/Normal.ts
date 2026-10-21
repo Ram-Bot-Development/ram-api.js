@@ -14,7 +14,7 @@ var logger = new ExecuteLogger("Ram Bot Development");
    
     
    
-    constructor(apikey: string, version = "v14", retryAfter = 60000, retry = 6) {
+    constructor(apikey: string, version = "v17", retryAfter = 60000, retry = 6) {
       logger = new ExecuteLogger("Ram Bot Development");
         this.retryAfter = retryAfter;
         this.retry = retry;
@@ -22,7 +22,7 @@ var logger = new ExecuteLogger("Ram Bot Development");
         this.version = version;
         this.headers = {"api-key": apikey};
 
-      if(version === "v16") this.headers = {"token": apikey};
+      if (Number(String(version).replace(/\D/g, "")) >= 16) this.headers = {"token": apikey};
 
 
     }
@@ -86,7 +86,9 @@ var logger = new ExecuteLogger("Ram Bot Development");
     private _apiRequest(
         endpoint: string,
         _options?: {
-           params?: {}
+           params?: {},
+           method?: "get" | "post",
+           data?: any
 }
     ) {
       
@@ -94,8 +96,8 @@ var logger = new ExecuteLogger("Ram Bot Development");
 
            _options = _options || {};
           
-            const supportedVersions = ["v16"];
-            const outdatedVersions = [ "v13", "v14", "v15"];
+            const supportedVersions = ["v17"];
+            const outdatedVersions = ["v14", "v15", "v16"];
             const notsupported = [
               "v0",
               "v1",
@@ -109,9 +111,10 @@ var logger = new ExecuteLogger("Ram Bot Development");
               "v9",
               "v10",
               "v11",
-              "v12"
+              "v12",
+              "v13"
             ];
-            const requestedVersion = this.version || "v16";
+            const requestedVersion = this.version || "v17";
       
             if (supportedVersions.includes(requestedVersion)) {
             } else if (outdatedVersions.includes(requestedVersion)) {
@@ -128,9 +131,10 @@ var logger = new ExecuteLogger("Ram Bot Development");
       
             try {
               const response = await axios({
-                method: "get",
+                method: _options.method || "get",
                 url: `/${requestedVersion}/` + endpoint,
                 params: _options.params || {},
+                data: _options.data,
                 baseURL: this.baseURL,
                 headers: this.headers
               });
@@ -142,7 +146,7 @@ var logger = new ExecuteLogger("Ram Bot Development");
                 error,
                 resolve,
                 reject,
-                "get",
+                _options.method || "get",
                 _options
               );
             }
@@ -184,7 +188,7 @@ var logger = new ExecuteLogger("Ram Bot Development");
         return await this._apiRequest("/hug") as Promise<{ url: string }>;
       }
       async goodNightAsync(lang = "english"): Promise<{ text: string, url: string }> {
-        return await this._apiRequest("/goodNight") as Promise<{ text: string, url: string }>;
+        return await this._apiRequest("/goodNight", { params: { lang } }) as Promise<{ text: string, url: string }>;
       }
       async goodMorningAsync(lang = "english"): Promise<{ text: string, url: string }> {
         return await this._apiRequest("/goodMorning", { params: { lang } }) as Promise<{ text: string, url: string }>;
@@ -202,7 +206,7 @@ var logger = new ExecuteLogger("Ram Bot Development");
         return await this._apiRequest("/8ball", { params: { lang } }) as Promise<{ text: string }>;
       }
       async rateLimitAsync(): Promise<{ limit: number, current: number, remaining: number, resetTime: string, resetTimeFormated: string  }> {
-        return await this._apiRequest("/ratelimit") as Promise<{ limit: number, current: number, remaining: number, resetTime: string, resetTimeFormated: string  }>;
+        return await this._apiRequest("/rateLimit") as Promise<{ limit: number, current: number, remaining: number, resetTime: string, resetTimeFormated: string  }>;
       }
       async randomNumberAsync(min: number, max: number): Promise<{ Number: number, roundedNumber: number, flooredNumber: number, enteredNumbers: string}> {
         return await this._apiRequest("/randomNumber", {
@@ -218,7 +222,7 @@ var logger = new ExecuteLogger("Ram Bot Development");
           try {
             await axios({
               method: "post",
-              url: `/suggestion/${suggestion}`,
+              url: `/${this.version}/suggestion/${suggestion}`,
               data: {}, // Replace {} with the actual request body you want to send
               params: params || {},
               baseURL: this.baseURL,
@@ -247,5 +251,61 @@ var logger = new ExecuteLogger("Ram Bot Development");
         return await this._apiRequest("/meme", {
     
         }) as Promise<{ url: string }>;
+      }
+      async roastAsync(): Promise<{ text: string }> {
+        return await this._apiRequest("/roast") as Promise<{ text: string }>;
+      }
+      async complimentAsync(): Promise<{ text: string }> {
+        return await this._apiRequest("/compliment") as Promise<{ text: string }>;
+      }
+      async dadJokeAsync(): Promise<{ setup: string, punchline: string }> {
+        return await this._apiRequest("/dadJoke") as Promise<{ setup: string, punchline: string }>;
+      }
+      async factAsync(topic?: string): Promise<{ id: string, topic: string, text: string }> {
+        return await this._apiRequest("/fact", { params: { topic } }) as Promise<{ id: string, topic: string, text: string }>;
+      }
+      async fortuneAsync(): Promise<{ text: string }> {
+        return await this._apiRequest("/fortune") as Promise<{ text: string }>;
+      }
+      async animalAsync(): Promise<{ name: string, scientificName: string, habitat: string, diet: string, fact: string, image: string }> {
+        return await this._apiRequest("/animal") as Promise<{ name: string, scientificName: string, habitat: string, diet: string, fact: string, image: string }>;
+      }
+      async triviaAsync(category?: string, difficulty?: string): Promise<{ id: string, category: string, difficulty: string, question: string, choices: string[] }> {
+        return await this._apiRequest("/trivia", { params: { category, difficulty } }) as Promise<{ id: string, category: string, difficulty: string, question: string, choices: string[] }>;
+      }
+      async wyrAsync(): Promise<{ id: string, prompt: string }> {
+        return await this._apiRequest("/wyr") as Promise<{ id: string, prompt: string }>;
+      }
+      async neverHaveIEverAsync(): Promise<{ id: string, prompt: string }> {
+        return await this._apiRequest("/neverHaveIEver") as Promise<{ id: string, prompt: string }>;
+      }
+      async truthOrDareAsync(type?: string, rating?: string): Promise<{ type: string, rating: string, prompt: string }> {
+        return await this._apiRequest("/truthOrDare", { params: { type, rating } }) as Promise<{ type: string, rating: string, prompt: string }>;
+      }
+      async wordScrambleAsync(hint?: string): Promise<{ id: string, scrambled: string, length: number, hint?: string }> {
+        return await this._apiRequest("/wordScramble", { params: { hint } }) as Promise<{ id: string, scrambled: string, length: number, hint?: string }>;
+      }
+      async guessNumberAsync(max?: number): Promise<{ id: string, min: number, max: number, attempts: number, prompt: string }> {
+        return await this._apiRequest("/guessNumber", { params: { max } }) as Promise<{ id: string, min: number, max: number, attempts: number, prompt: string }>;
+      }
+      async quizCheckAsync(id: string, answer: string): Promise<{ id: string, correct: boolean, answer?: string, direction?: string, attemptsLeft?: number }> {
+        return await this._apiRequest("/quiz/check", {
+          method: "post",
+          data: { id, answer }
+        }) as Promise<{ id: string, correct: boolean, answer?: string, direction?: string, attemptsLeft?: number }>;
+      }
+      async gameSessionAsync(game: string, player: string): Promise<{ sessionId: string, game: string, status: string, host: string, players: { name: string, score: number }[], expiresAt: string }> {
+        return await this._apiRequest("/game/session", {
+          method: "post",
+          data: { game, player }
+        }) as Promise<{ sessionId: string, game: string, status: string, host: string, players: { name: string, score: number }[], expiresAt: string }>;
+      }
+      async gameMoveAsync(sessionId: string, player: string, action: string, value?: string): Promise<{ sessionId: string, game: string, status: string, host: string, players: { name: string, score: number }[], expiresAt: string, result: string, round?: { prompt: string, attemptsLeft: number } }> {
+        const data: { sessionId: string, player: string, action: string, value?: string } = { sessionId, player, action };
+        if (value !== undefined) data.value = value;
+        return await this._apiRequest("/game/move", {
+          method: "post",
+          data
+        }) as Promise<{ sessionId: string, game: string, status: string, host: string, players: { name: string, score: number }[], expiresAt: string, result: string, round?: { prompt: string, attemptsLeft: number } }>;
       }
   }
